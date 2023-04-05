@@ -1,28 +1,44 @@
 import React,{useState} from "react"
+import List from "./components/List"
 
 function App() {
   const [list , setList] = useState([]);
   const [data , setData] = useState({});
-
+  
   const handleInput = (e) => {
     const {value} = e.target;
     setData({title: value});
   }
-  console.log(data);
-  const handleForm = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setList([...list, data])
+
+    let lastId = 0;
+    if(list.length > 0){
+      lastId = list.sort((a,b) => a.id - b.id);
+      lastId =  lastId[0].id + 1;
+    }
+    else{
+      lastId = lastId + 1;
+    }
+
+    setList([...list, {...data , id: lastId}])
+  }
+  
+  console.log(list);
+
+  const handleDelete = (id) => {
+    setList(list.filter( e => e.id !== id))
   }
 
   return (
     <div className="container py-5">
       <div className="col-12">
-        <form onSubmit={handleForm} action="">
+        <form onSubmit={handleSubmit} action="">
           <div className="row">
-            <div className="col-8">
+            <div className="col-10">
               <input type="text" className="form-control" onChange={handleInput}/>
             </div>
-            <div className="col-4">
+            <div className="col-2">
               <button className="btn btn-primary 2-100">Add todo</button>
             </div>
           </div>
@@ -33,22 +49,7 @@ function App() {
         <div className="row">
         {
           list.map( (index, key) => (
-            <div className="col-12 mt-4" key={key}>
-            <div className="alert alert-primary">
-              <div className="row">
-                <div className="col-10">
-                  <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora earum nisi saepe vero, distinctio consequatur laborum temporibus porro debitis veritatis?
-                  </p>
-                </div>
-                <div className="col-2">
-                  <div className="btn-group">
-                    <div className="btn btn-danger">X</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
+            <List key={key} title={index.title} id={index.id} handleDelete={handleDelete} />
           ))
         }
       </div>
