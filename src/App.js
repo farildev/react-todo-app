@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from "react"
 import List from "./components/List"
+import "./styles/style.css"
 
 function App() {
   const [list , setList] = useState([]);
@@ -38,6 +39,9 @@ function App() {
   return (
     <div className="container py-5">
       <div className="col-12">
+        <h2 className="d-flex justify-content-center bg-primary text-white p-3">Todo App</h2>
+      </div>
+      <div className="col-12 mt-4">
         <form onSubmit={handleSubmit} action="">
           <div className="row">
             <div className="col-10">
