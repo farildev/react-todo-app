@@ -1,4 +1,4 @@
-import React,{useState} from "react"
+import React,{useEffect, useState} from "react"
 import List from "./components/List"
 
 function App() {
@@ -9,8 +9,13 @@ function App() {
     const {value} = e.target;
     setData({title: value});
   }
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(data.title === "" ){
+      return false
+    }
 
     let lastId = 0;
     if(list.length > 0){

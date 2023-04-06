@@ -2,7 +2,7 @@ import React from 'react'
 
 function List({title , id , handleDelete}) {
   return (
-    <div className="col-12 mt-4">
+    <div className="col-12 mt-3">
             <div className="alert alert-primary">
               <div className="row">
                 <div className="col-11">
